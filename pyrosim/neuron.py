@@ -65,22 +65,32 @@ class NEURON:
     def Set_Value(self,value):
 
         self.value = value
-        
+
+    # Added Methods
     def Update_Sensor_Neuron(self):
-        
         self.Set_Value(pyrosim.Get_Touch_Sensor_Value_For_Link(self.Get_Link_Name()))
-        
+
     def Update_Hidden_Or_Motor_Neuron(self, neurons, synapses):
+        # Computing a weighted sum here: the weight of each incoming synapses by the value of that synapse's presynaptic neuron
         self.Set_Value(0)
-        for s in synapses:
-            if self.Get_Name() == s[1]:
-                self.Allow_Presynaptic_Neuron_To_Influence_Me(synapses[s].Get_Weight(), neurons[s[0]].Get_Value())
+        # print(self.Get_Value())
+
+        for synapse in synapses:
+            # See if the current synapse arrives at the neuron being updated - second element in the tuple (the name of that synapse's postsynaptic neuron)
+            if synapse[1] == self.Get_Name():
+                self.Allow_Presynaptic_Neuron_To_Influence_Me(synapses[synapse].Get_Weight(), neurons[synapse[0]].Get_Value())
+
+        # value of neuron 3 change from 0.0 to 0.964 (tanh(2)=0.964)
         self.Threshold()
-        
-    
-    def Allow_Presynaptic_Neuron_To_Influence_Me(self, weight, presyn_value):
-        x = presyn_value * weight
-        self.Add_To_Value(x)
+
+        # print(self.Get_Value())
+        # exit()
+
+    def Allow_Presynaptic_Neuron_To_Influence_Me(self, synapseWeight, preSynapticnNeuron):
+        valueToBeAdded = synapseWeight * preSynapticnNeuron
+        self.Add_To_Value(valueToBeAdded)
+
+
 
 # -------------------------- Private methods -------------------------
 

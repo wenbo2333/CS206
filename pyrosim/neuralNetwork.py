@@ -1,4 +1,4 @@
-from pyrosim.neuron  import NEURON
+from pyrosim.neuron import NEURON
 
 from pyrosim.synapse import SYNAPSE
 
@@ -27,7 +27,28 @@ class NEURAL_NETWORK:
         self.Print_Motor_Neuron_Values()
 
         print("")
-        
+
+    # Added Methods
+    # Updates sensor neurons, and hidden and motor neurons
+    def Update(self):
+        for neuronName in self.neurons:
+            if self.neurons[neuronName].Is_Sensor_Neuron():
+                self.neurons[neuronName].Update_Sensor_Neuron()
+            else:
+                # If the current neuron is not a sensor neuron, it is a hidden or motor neuron
+                self.neurons[neuronName].Update_Hidden_Or_Motor_Neuron(self.neurons, self.synapses)
+
+    def Get_Neuron_Names(self):
+        return self.neurons.keys()
+
+    def Is_Motor_Neuron(self, neuronName):
+        return self.neurons[neuronName].Is_Motor_Neuron()
+
+    def Get_Motor_Neurons_Joint(self, neuronName):
+        return self.neurons[neuronName].Get_Joint_Name()
+
+    def Get_Value_Of(self, neuronName):
+        return self.neurons[neuronName].Get_Value()
 
 # ---------------- Private methods --------------------------------------
 
@@ -87,7 +108,7 @@ class NEURAL_NETWORK:
 
                 self.neurons[neuronName].Print()
 
-        print("")       
+        print("")
 
     def Print_Motor_Neuron_Values(self):
 
@@ -100,31 +121,3 @@ class NEURAL_NETWORK:
                 self.neurons[neuronName].Print()
 
         print("")
-
-# ---------------- HW part -------------------------------------- 
-        
-    def Update(self):
-        for neuronName in sorted(self.neurons):
-            if self.neurons[neuronName].Is_Sensor_Neuron():
-                self.neurons[neuronName].Update_Sensor_Neuron()
-            else:
-                self.neurons[neuronName].Update_Hidden_Or_Motor_Neuron(self.neurons, self.synapses)
-                
-    def Get_Neuron_Names(self):
-        return self.neurons.keys()
-
-    def Is_Motor_Neuron(self, neuronName):
-        neuron = self.neurons[neuronName]
-        if neuron.Is_Motor_Neuron():
-            return True
-        else:
-            return False
-
-    def Get_Motor_Neurons_Joint(self, neuronName):
-        neuron = self.neurons[neuronName]
-        return neuron.Get_Joint_Name()
-
-    def Get_Value_Of(self, neuronName):
-        neuron = self.neurons[neuronName]
-        return neuron.Get_Value()
-        
