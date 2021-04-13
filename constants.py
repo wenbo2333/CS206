@@ -21,13 +21,13 @@ numberOfGenerations = 20
 populationSize = 10
 
 # number of sensors
-numSensorNeurons = 4
+numSensorNeurons = 6
 
 # number of motors
 numMotorNeurons = 8
 
 # makes the joint's angle range narrower/larger
-motorJointRange = 0.27
+motorJointRange = 0.3
 
 # --The bots motion--
 # Motor motion
