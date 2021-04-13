@@ -2,15 +2,15 @@ import pybullet as p
 
 from pyrosim.nndf import NNDF
 
-from pyrosim.linksdf  import LINK_SDF
+from pyrosim.linksdf import LINK_SDF
 
 from pyrosim.linkurdf import LINK_URDF
 
 from pyrosim.model import MODEL
 
-from pyrosim.sdf   import SDF
+from pyrosim.sdf import SDF
 
-from pyrosim.urdf  import URDF
+from pyrosim.urdf import URDF
 
 from pyrosim.joint import JOINT
 
@@ -136,11 +136,11 @@ def Send_Cube(name="default",pos=[0,0,0],size=[1,1,1]):
 
     availableLinkIndex = availableLinkIndex + 1
 
-def Send_Joint(name,parent,child,type,position):
+def Send_Joint(name,parent,child,type,position,jointAxis):
 
     joint = JOINT(name,parent,child,type,position)
 
-    joint.Save(f)
+    joint.Save(f, jointAxis)
 
 def Send_Motor_Neuron(name,jointName):
 
