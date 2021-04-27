@@ -33,7 +33,7 @@ class SIMULATION:
 			# time.sleep(1/60)
 			# Only time.sleep() if simulation is running to the screen
 			if (self.directOrGUI == 'GUI'):
-				time.sleep(1/900)
+				time.sleep(1/300)
 			p.stepSimulation()
 			self.robot.Sense(i)
 			self.robot.Think()
